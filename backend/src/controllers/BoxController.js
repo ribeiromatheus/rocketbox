@@ -4,7 +4,10 @@ module.exports = {
   async store(req, res) {
     const { title } = req.body;
 
-    const box = await Box.create({ title });
+    let box = await Box.findOne({ title });
+
+    if (!box)
+      box = await Box.create({ title });
 
     return res.json(box);
   },
